@@ -38,8 +38,7 @@ n_nonzero_beta = int(sparsity * block_size)
 
 # correlations and selection thresholds
 correlations = np.array([0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
-#selection_thres_mins = np.array([0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
-selection_thres_mins = np.array([0.5])
+selection_thres_mins = np.array([0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
 
 results = h5py.File(results_file, 'w')
 # result arrays: fits
