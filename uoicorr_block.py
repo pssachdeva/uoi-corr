@@ -50,7 +50,7 @@ fp_results = np.zeros((reps, correlations.size, selection_thres_mins.size))
 r2_results = np.zeros((reps, correlations.size, selection_thres_mins.size))
 r2_true_results = np.zeros((reps, correlations.size))
 
-for rep in range(1):
+for rep in range(reps):
 	beta = np.random.uniform(low=0, high=10, size=(n_features, 1))
 	mask = np.array([])
 	for block in range(n_blocks):

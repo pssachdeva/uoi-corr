@@ -34,7 +34,7 @@ n_nonzero_beta = int(sparsity * n_features)
 
 # correlations and selection thresholds
 Ls = np.array([0.25, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0])
-selection_thres_mins = np.array([0.5])
+selection_thres_mins = np.array([0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
 
 results = h5py.File(results_file, 'w')
 # result arrays: fits
