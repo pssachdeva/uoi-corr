@@ -46,7 +46,7 @@
 	
 	Thus, UoI$_{\text{Lasso}}$ will perform the estimation module using $B_2$ bootstraps over $N_{\lambda}\times N_{f_s}$ supports. Importantly, we will use BIC to evaluate and choose the final features in the estimation module.
 	
-\section{First Experiment}
+\section{Experiment 1}
 	Our first experiment considers how the selection threshold aids in cases of collinear features. Our toy dataset consists of a design matrix $\mathbf{X}$ with $M$ features. These features are divided into groups of 5, and there is a covariance structure assigned to each group. Thus, the covariance matrix across the entire dataset takes on a block-diagonal form:
 	\begin{align}
 		\boldsymbol{\Sigma} &= \left(
@@ -79,4 +79,57 @@
 		\caption{Median explained variance over various lower selection thresholds. There is generally an increase in $R^2$ as $L_{f_s}$ is decreased. The dashed blue line indicates the median performance by the true parameters. Lastly, we did not include $r=1.0$ since the $R^2$ was poor.}
 		\label{fig:r2-vs-thres}
 	\end{figure}
+
+\section{Experiment 2}
+For the second experiment, we varied the sparsity of the true parameters. This allowed there to be both false positives and false negatives. For example, consider a model with 50 features divided into 5 groups of 10 and a sparsity of $s=0.4$. The sparsity was enforced in such a way that each group had $10 \times 0.4 = 4$ non-zero parameters. 
+False positives and false negatives are shown below.
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.27}{\includegraphics{img/exp2-09.pdf}}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.27}{\includegraphics{img/exp2-07.pdf}}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.27}{\includegraphics{img/exp2-05.pdf}}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.27}{\includegraphics{img/exp2-03.pdf}}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.27}{\includegraphics{img/exp2-01.pdf}}
+\end{figure}
+
+We also plot selection accuracies below. 
+
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.35}{\includegraphics{img/exp2-09-selacc.pdf}}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.35}{\includegraphics{img/exp2-07-selacc.pdf}}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.35}{\includegraphics{img/exp2-05-selacc.pdf}}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.35}{\includegraphics{img/exp2-03-selacc.pdf}}
+\end{figure}
+\begin{figure}[ht]
+	\centering
+	\scalebox{0.35}{\includegraphics{img/exp2-01-selacc.pdf}}
+\end{figure}
+
+
+
+
+
+
 \end{document}
