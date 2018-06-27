@@ -2,4 +2,5 @@
 *.pdf
 *.aux
 *.synctex.gz
-
+*.ipynb_checkpoints
+*.log
