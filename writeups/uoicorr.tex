@@ -31,6 +31,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\plim}{plim}
 \DeclareMathOperator{\Tr}{Tr}
+\usepackage{float}
 
 
 \begin{document}
@@ -66,70 +67,83 @@
 	\end{align}
 	where $\boldsymbol{\beta}$ were just drawn from a uniform distribution, and the noise term was standard normal: $\epsilon \sim \mathcal{N}(0, \sigma^2)$, with variance set to enforce an inverse signal-to-noise ratio of $\kappa=0.3$. Lastly, the $\boldsymbol{\beta}$ consisted of only non-zero parameters, so we were only concerned with reducing false negatives.
 	
-	We considered a range of correlations $r\in \left\{0, \ldots, 1.0\right\}$ built into the block covariance $\mathbf{B}$. Thus, for $r=1.0$, our dataset consisted of 5 groups of perfectly (but separately) correlated features. We ran UoI$_{\text{Lasso}}$ on data generated from 50 models with various lower selection thresholds $L_{f_s}$. Our results are shown in Figure \ref{fig:fn-vs-thres}. 	In addition, explained variances are depicted in Figure \ref{fig:r2-vs-thres}.
+	We considered a range of correlations $r\in \left\{0, \ldots, 1.0\right\}$ built into the block covariance $\mathbf{B}$. Thus, for $r=1.0$, our dataset consisted of 5 groups of perfectly (but separately) correlated features. We ran UoI$_{\text{Lasso}}$ on data generated from 50 models with various lower selection thresholds $L_{f_s}$. Our results are shown in Figure \ref{fig:exp1_fn-vs-thres}. 	In addition, explained variances are depicted in Figure \ref{fig:exp1_r2-vs-thres}.
 	\begin{figure}[ht]
 		\centering
-		\scalebox{0.32}{\includegraphics{img/fn_vs_lower_threshold.pdf}}
+		\scalebox{0.32}{\includegraphics{img/exp1_fn_vs_lower_threshold.pdf}}
 		\caption{False negatives vs. Lower selection threshold. Depicted are averages over 50 separate models. As we decrease the selection threshold, we select more variables and therefore observe fewer false negatives. Traditional UoI$_{\text{Lasso}}$ is given by $L_{f_s} = 1.0$ on the right hand side. For $r=1.0$, we see 20 false negatives, which makes sense: UoI$_{\text{Lasso}}$ will only select one variable among each of the five groups (setting the remaining 20 to zero).}
-		\label{fig:fn-vs-thres}
+		\label{fig:exp1_fn-vs-thres}
 	\end{figure}
 	\begin{figure}[ht]
 		\centering
-		\scalebox{0.32}{\includegraphics{img/r2_vs_lower_threshold.pdf}}
+		\scalebox{0.32}{\includegraphics{img/exp1_r2_vs_lower_threshold.pdf}}
 		\caption{Median explained variance over various lower selection thresholds. There is generally an increase in $R^2$ as $L_{f_s}$ is decreased. The dashed blue line indicates the median performance by the true parameters. Lastly, we did not include $r=1.0$ since the $R^2$ was poor.}
-		\label{fig:r2-vs-thres}
+		\label{fig:exp1_r2-vs-thres}
 	\end{figure}
 
 \section{Experiment 2}
-For the second experiment, we varied the sparsity of the true parameters. This allowed there to be both false positives and false negatives. For example, consider a model with 50 features divided into 5 groups of 10 and a sparsity of $s=0.4$. The sparsity was enforced in such a way that each group had $10 \times 0.4 = 4$ non-zero parameters. 
-False positives and false negatives are shown below.
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.27}{\includegraphics{img/exp2-09.pdf}}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.27}{\includegraphics{img/exp2-07.pdf}}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.27}{\includegraphics{img/exp2-05.pdf}}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.27}{\includegraphics{img/exp2-03.pdf}}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.27}{\includegraphics{img/exp2-01.pdf}}
-\end{figure}
+In experiment 1, we had no false positives since all parameters were included in the true model. This effectively corresponds to a sparsity of $s=1.$ In this experiment, we relaxed that sparsity constraint and allowed $s$ to vary from $0.1$ to $1.0$. We enforced sparsity uniformly across groups. For example, consider a model with $50$ features divided into $5$ groups of $10$ and a sparsity of $s=0.4$. Then, each group had $10 \times 0.4 = 4$ non-zero parameters, and there were $50\times 0.4 = 20 = 4\times 5$ non-zero parameters overall. 
 
-We also plot selection accuracies below. 
+In this experiment, we considered a $50$ dimensional feature vector consisting of $10$ groups of correlated features. We varied the within-group uniform correlation $r$, as before, but also varied the sparsity $s$. For each choice of $(r,s)$, we fit UoI$_{\text{Lasso}}$ with multiple lower selection thresholds (LSTs). Finally, as before, we performed this estimation procedure on 50 unique datasets over which we present aggregate results. Thus, there are three meaningful axes along which to evaluate the UoI performance. 
+
+First, we can summarize the selection performance using false positives and false negatives with a plot inspired by ROC curves: we plot the false negative rate against the false positive rate for various choices of LST. This plot is shown in Figure \ref{fig:exp2-roc}, over multiple sparsities and across correlation values. When plotting the selection accuracies this way, it becomes easier to visualize what an optimal LST might be.
 
 \begin{figure}[ht]
 	\centering
-	\scalebox{0.35}{\includegraphics{img/exp2-09-selacc.pdf}}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.35}{\includegraphics{img/exp2-07-selacc.pdf}}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.35}{\includegraphics{img/exp2-05-selacc.pdf}}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.35}{\includegraphics{img/exp2-03-selacc.pdf}}
-\end{figure}
-\begin{figure}[ht]
-	\centering
-	\scalebox{0.35}{\includegraphics{img/exp2-01-selacc.pdf}}
+	\scalebox{0.28}{\includegraphics{img/exp2_roc.pdf}}
+	\caption{False negative rate against false positive rate for different values of lower selection threshold in the UoI algorithm. Generally, larger false positive rates correspond to smaller LSTs.}
+	\label{fig:exp2-roc}
 \end{figure}
 
+Next, we might ask if UoI$_{\text{Lasso}}$ is selecting representative parameters from each group. This becomes relevant for higher correlations, when it is possible that one parameter provides good prediction accuracy as a substitute for the entire group. We plot the number of parameters selected per group across datasets for a variety of sparsities and correlations in Figure \ref{fig:exp2-n-per-group}.
+\begin{figure}[H]
+	\centering
+	\scalebox{0.25}{\includegraphics{img/exp2_n_per_group.pdf}}
+	\caption{Number of parameters selected per group. Boxplots are taken over all groups and all datasets (thus, there are $50\times 5=250$ points in each boxplot).}
+	\label{fig:exp2-n-per-group}
+\end{figure}
 
+Thus, it is clear that UoI$_{\text{Lasso}}$ is selecting less parameters both as the LST increases and as the correlation increases. This implies an increase in false negatives. Thus, the next natural question to ask if: given an increase in false negatives, which parameters are getting selected out? Our expectation is that the smaller parameters would be selected out. We plot the average magnitude of false negatives as a function of sparsity, LST, and correlation in Figure \ref{fig:exp2-mag-fn}. Immediately, we see that the average magnitude has a very weak dependence on LST. Furthermore, the average magnitude of false negatives increases with correlation, while the shape of the distribution changes with sparsity.
 
+\begin{figure}[H]
+	\centering
+	\scalebox{0.24}{\includegraphics{img/exp2_mag_fn.pdf}}
+	\caption{Average magnitude of false negatives. Boxplots contain the average magnitude of the true parameters which were falsely selected out by UoI$_{\text{Lasso}}$, taken across datasets. }
+	\label{fig:exp2-mag-fn}
+\end{figure}
 
+Since the boxplots above are taken across separate instantiations of the problem, with completely different $\beta$ values, the actual spread of the boxplot is somewhat meaningless. To be clear, one instantiation might have artificially inflated values of $\beta$, thereby artificially increasing the average magnitude of the false negatives. Thus, to normalize over instantiations, we calculated the scaled false negative rate, given by
+\begin{align}
+	\text{scaled false negative rate} &= \frac{\sum_{j \in \text{FN}} |\beta_j|}{\sum_{i=1}^{10} |\beta_i|},
+\end{align}
+i.e. the $\ell_1$-norm of the true parameters selected out by the algorithm divided by the $\ell_1$-norm of the entire vector of parameters. The difficult of this parameter is that a low value might conflate both selecting out small values of $\beta_i$ or a low false negative rate.
+
+\begin{figure}[H]
+	\centering
+	\scalebox{0.23}{\includegraphics{img/exp2_mag_fn_scaled.pdf}}
+	\caption{Average magnitude of false negatives. Boxplots contain the average magnitude of the true parameters which were falsely selected out by UoI$_{\text{Lasso}}$, taken across datasets. }
+	\label{fig:exp2-mag-fn}
+\end{figure}
+
+The above two plots exhibit a weak dependence on LST. Thus, a 2d surface plot between sparsity and correlation would be useful to examine. The plots are shown in Figure \ref{fig:exp2-mag-fn-surface}. 
+
+\begin{figure}[H]
+	\centering
+	\scalebox{0.40}{\includegraphics{img/exp2_mag_fn_2d.pdf}}
+	\caption{Surface plots of the previous two plots, with varying sparsity and correlation. Shown are averages over LST and the 50 instantiations. The general trends are similar as before:an increase in correlation and an increase in sparsity result in larger values of both quantities.}
+	\label{fig:exp2-mag-fn-surface}
+\end{figure}
+
+Lastly, we consider \textit{selection accuracy per group}. This is a useful quantity to examine because the selection accuracy for an entire parameter vector will not be the same as the average of selection accuracies across groups (unlike false positives and false negatives). Thus, in Figure \ref{fig:exp2-sel-per-group}, we examine how LST, correlation, and sparsity impact the selection accuracy per group.  
+
+There are a couple takeaways from the figure. First, sparsity is important: a smaller sparsity implies that the correlation will have a minimal impact on the optimal choice of LST. Next, just by eyeballing the figure, a LST of 0.7 is a generally optimal choice for any choice of correlation and sparsity. 
+
+\begin{figure}[H]
+	\centering
+	\scalebox{0.25}{\includegraphics{img/exp2_sel_per_group.pdf}}
+	\caption{Selection accuracy per group. Boxplots are selection accuracies for each group in a given feature vector, across all 50 datasets. Thus, they consist of $50\times 5 = 250$ points each.}
+	\label{fig:exp2-sel-per-group}
+\end{figure}
 
 
 \end{document}
