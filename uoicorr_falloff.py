@@ -55,7 +55,7 @@ for rep in range(reps):
 	betas[rep, :] = beta.ravel()
 	for L_idx, L in enumerate(Ls):
 		# create covariance matrix for block
-		indices = np.ones(n_features)
+		indices = np.arange(n_features)
 		distances = np.abs(np.subtract.outer(indices, indices))
 		Sigma = np.exp(-distances/L)
 		# draw samples
