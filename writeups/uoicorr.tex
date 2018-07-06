@@ -145,5 +145,12 @@ There are a couple takeaways from the figure. First, sparsity is important: a sm
 	\label{fig:exp2-sel-per-group}
 \end{figure}
 
+\section{Experiment 3}
+In the previous experiments, we considered groups of correlated regressors. There existed no correlations between groups, however, which allowed the covariance matrix to take on a block-diagonal structure. In this experiment, we instead allow correlations to exist across all regressors with the magnitude set by a distance metric. The distance metric operated on the space of indices. Thus, for regressor $X_i$ and $X_j$ (with respective parameters $\beta_i$ and $\beta_j$), the correlation between them was 
+\begin{align}
+	\text{corr}(X_i, X_j) &= \exp\left(-\frac{|i-j|}{L}\right). \label{eqn:corr-falloff}
+\end{align}
+Equation \ref{eqn:corr-falloff} actually specifies the entire correlation matrix, as it ensures all diagonal terms are set to one. Thus, the hyperparameter $L$ specifies how fast correlations fall off. If $L$ is large, only regressors close to each other are correlated; if $L$ is small, then the correlations will exist across the matrix. 
 
+Thus, while the previous formulation specified the correlation uniformly applied within in group ($r$), this formulation specifies how quickly correlations deteriorate ($L$). Once again, we enforce sparsity $s$, but now we make no restrictions on which parameters are zero (before, we enforced sparsity uniformly across groups). We once again assess how UoI$_{\text{Lasso}}$ performs with various choices of LST across 50 different instantiations of model. There are, as before, 3 dimensions of interest over which to evaluate performance: fall-off $L$, sparsity $s$, and LST. 
 \end{document}
