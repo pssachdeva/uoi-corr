@@ -150,7 +150,36 @@ In the previous experiments, we considered groups of correlated regressors. Ther
 \begin{align}
 	\text{corr}(X_i, X_j) &= \exp\left(-\frac{|i-j|}{L}\right). \label{eqn:corr-falloff}
 \end{align}
-Equation \ref{eqn:corr-falloff} actually specifies the entire correlation matrix, as it ensures all diagonal terms are set to one. Thus, the hyperparameter $L$ specifies how fast correlations fall off. If $L$ is large, only regressors close to each other are correlated; if $L$ is small, then the correlations will exist across the matrix. 
+Equation \ref{eqn:corr-falloff} actually specifies the entire correlation matrix, as it ensures all diagonal terms are set to one. Thus, the hyperparameter $L$ dictates how fast correlations fall off. If $L$ is small, only regressors close to each other are correlated; if $L$ is large, then large correlations will exist across the matrix. 
 
-Thus, while the previous formulation specified the correlation uniformly applied within in group ($r$), this formulation specifies how quickly correlations deteriorate ($L$). Once again, we enforce sparsity $s$, but now we make no restrictions on which parameters are zero (before, we enforced sparsity uniformly across groups). We once again assess how UoI$_{\text{Lasso}}$ performs with various choices of LST across 50 different instantiations of model. There are, as before, 3 dimensions of interest over which to evaluate performance: fall-off $L$, sparsity $s$, and LST. 
+Thus, while the previous formulation specified the correlation uniformly applied within in group ($r$), this formulation specifies how quickly correlations deteriorate ($L$). Once again, we enforce sparsity $s$, but now we make no restrictions on which parameters are zero (before, we enforced sparsity uniformly across groups). We once again assess how UoI$_{\text{Lasso}}$ performs with various choices of LST across 50 different instantiations of model. There are, as before, 3 dimensions of interest over which to evaluate performance: fall-off $L$, sparsity $s$, and LST. We can first examine the performance of UoI$_{\text{Lasso}}$ as LST is varied with a similar ROC plot as in Experiment 2.
+\begin{figure}[H]
+	\centering
+	\scalebox{0.30}{\includegraphics{img/exp3_roc.pdf}}
+	\caption{FNR vs. FPR over various choices of LST.}
+	\label{fig:exp3-roc}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\scalebox{0.30}{\includegraphics{img/exp3_mag_fn.pdf}}
+	\caption{Average magnitude of false negatives. Boxplots are taken over datasets.}
+	\label{fig:exp3-mag-fn}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\scalebox{0.25}{\includegraphics{img/exp3_mag_fn_scaled.pdf}}
+	\caption{Scaled FNR. Boxplots are taken over datasets.}
+	\label{fig:exp3-mag-fn-scaled}
+\end{figure}
+
+Next, we can examine the average magnitude of the false negatives across datasets as well as the scaled false negative rate (both defined explicitly in the previous section). These are shown in Figure \ref{fig:exp3-mag-fn} and Figure \ref{fig:exp3-mag-fn-scaled} above.  Lastly, we examine selection accuracy as a way to summarize the ROC results shown in Figure \ref{fig:exp3-sel-acc}. The selection accuracy highlights interesting behaviors. If the sparsity is very high, a decrease in LST will almost always improve selection accuracy. This increase is exaggerated if the correlations are stronger (larger $L$). If the sparsity is small, decreasing LST will harm selection accuracy performance since it will increase the number of false positives. This figure highlights, once again, that LST$=0.7$ is a good heuristic to follow.
+
+\begin{figure}[H]
+	\centering
+	\scalebox{0.31}{\includegraphics{img/exp3_sel_acc.pdf}}
+	\caption{Average magnitude of false negatives. Boxplots are taken over datasets.}
+	\label{fig:exp3-sel-acc}
+\end{figure}
 \end{document}
