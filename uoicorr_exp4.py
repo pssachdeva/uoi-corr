@@ -119,7 +119,7 @@ for rep in range(reps):
 # store results in h5 file
 results['betas'] = betas
 results['beta_hats_uoi'] = beta_hats_uoi
-results['beta_hat_enet'] = beta_hat_enet
+results['beta_hats_enet'] = beta_hats_enet
 results['r2_uoi'] = r2_uoi
 results['r2_enet'] = r2_enet
 results['r2_true'] = r2_true
