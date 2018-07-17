@@ -188,4 +188,25 @@ Next, we can examine the average magnitude of the false negatives across dataset
 	\caption{Average magnitude of false negatives. Boxplots are taken over datasets.}
 	\label{fig:exp3-sel-acc}
 \end{figure}
+
+\newpage
+
+\section{Experiments 4 \& 5}
+We performed UoI$_{\text{Lasso}}$ with an LST of 0.75 and cross-validated elastic net on data generated from the previous two regression setups (correlations in a block and correlations falling off with exponential decay). We performed cross-validated elastic net.
+
+\begin{figure}[H]
+	\centering
+	\scalebox{0.31}{\includegraphics{img/exp4_roc.pdf}}
+	\scalebox{0.31}{\includegraphics{img/exp5_roc.pdf}}
+	\caption{Comparison of UoI and Elastic net performance. Points are taken over different levels of sparsity; increasing marker size denotes increasing sparsity.}
+	\label{fig:exp3-sel-acc}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\scalebox{0.31}{\includegraphics{img/exp4-5_r2.pdf}}
+	\caption{Ratio of $R^2$ performance between UoI and Elastic Net. White indicates better UoI performance while black indicates better elastic net performance.}
+	\label{fig:exp3-sel-acc}
+\end{figure}
+
 \end{document}
